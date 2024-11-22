@@ -11,6 +11,10 @@
     <title>Attendance Table</title>
 </head>
 <body>
-Attendance Table
+<h1>Attendance:</h1>
+<br>
+
+${message}
+
 </body>
 </html>

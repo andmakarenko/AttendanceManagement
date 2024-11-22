@@ -9,8 +9,14 @@ public class DBConnection {
     private static String username = "root";
     private static String password = "tech562302";
 
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(url, username, password);
+    public static Connection getConnection(){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            return DriverManager.getConnection(url, username, password);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
     }
 
 }

@@ -30,12 +30,16 @@ public class LoginServlet extends HttpServlet {
         User user = userDAO.authenticate(username, password);
 
         if (user != null) {
-            HttpSession session = request.getSession();
-            session.setAttribute("user", user);
             if (user.getRole().equals("admin")) {
-                response.sendRedirect("admin.jsp");
+                request.setAttribute("username", user.getUsername());
+                request.setAttribute("userID", user.getId());
+                RequestDispatcher dispatcher = request.getRequestDispatcher("admin.jsp");
+                dispatcher.forward(request, response);
             } else {
-                response.sendRedirect("/webapp/attendance.jsp");
+                request.setAttribute("username", user.getUsername());
+                request.setAttribute("userID", user.getId());
+                RequestDispatcher dispatcher = request.getRequestDispatcher("studentDashboard.jsp");
+                dispatcher.forward(request, response);
             }
         } else {
             request.setAttribute("errorMessage", "Invalid username or password.");
@@ -44,8 +48,6 @@ public class LoginServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
             dispatcher.forward(request, response);
         }
-
-
     }
 }
 

@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDAO {
-    public User authenticate(String username, String password) throws SQLException {
+    public User authenticate(String username, String password) {
         User user = null;
 
         try(Connection connection = DBConnection.getConnection()){
@@ -20,7 +20,7 @@ public class UserDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
                 user = new User();
-                user.setId(resultSet.getInt("id"));
+                user.setId(resultSet.getInt("userID"));
                 user.setUsername(resultSet.getString("username"));
                 user.setRole(resultSet.getString("role"));
             }
@@ -29,5 +29,6 @@ public class UserDAO {
             e.printStackTrace();
         }
         return user;
+
     }
 }
